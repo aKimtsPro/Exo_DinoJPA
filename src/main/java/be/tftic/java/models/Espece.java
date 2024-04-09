@@ -1,5 +1,6 @@
 package be.tftic.java.models;
 
+import be.tftic.java.WithId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Espece {
+public class Espece implements WithId<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +32,11 @@ public class Espece {
     @OneToMany(mappedBy = "espece")
     private Set<Dino> dinos;
 
+    @ManyToOne
+    @JoinColumn(name = "espece_enclos_m")
+    private EnclosMultiple enclosMultiple;
+
     @OneToOne(mappedBy = "espece")
-    private Enclos enclos;
+    private EnclosSimple enclosSimple;
 
 }
